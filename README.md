@@ -16,6 +16,8 @@ The Poco C++ libraries are used for HTTP requests and JSON parsing. They can be 
   
   -/usr/local/include/Poco/
   -/usr/local/lib/
+
+CMakeLists.txt file references shared object (.so) libs, so please install as such.
   
 After installation, clone this repository.
 
