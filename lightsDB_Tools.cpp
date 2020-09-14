@@ -8,6 +8,8 @@
 
 using namespace std;
 
+//Checks for updates in the lights states on the bridge and updates the original
+//light vector accordingly
 int dbUpdateCheck(vector<struct light> * lightsVec, vector<struct light> * newLightData)
 {
 

@@ -15,6 +15,9 @@
 using namespace std;
 using namespace Poco;
 
+
+//Converts a Poco Dynamic Variable type into a string in order to output
+//JSON data
 string pocoDynVar2String(Dynamic::Var lightsReqResp)
 {
 
@@ -37,6 +40,8 @@ string pocoDynVar2String(Dynamic::Var lightsReqResp)
 
 }
 
+//Updates the state of a light struct based on a response from a request to
+//its corresponding JSON object
 int updateLightStates(struct light * myLight, Dynamic::Var lightStateReqResp)
 {
   JSON::Object::Ptr obj = lightStateReqResp.extract<JSON::Object::Ptr>();
@@ -59,6 +64,9 @@ int updateLightStates(struct light * myLight, Dynamic::Var lightStateReqResp)
   return 0;
 }
 
+
+//Creates a vector of lights from a JSON data GET request to the
+//"/lights" path location
 vector<struct light> createLightsVec(Dynamic::Var lightsReqResp)
 {
   JSON::Object::Ptr obj = lightsReqResp.extract<JSON::Object::Ptr>();
@@ -88,6 +96,7 @@ vector<struct light> createLightsVec(Dynamic::Var lightsReqResp)
   return lightsVec;
 }
 
+//Updates the vector of lights directly from the bridge
 int updateLightsVec(vector<struct light> * lightsVec,struct ipConfig simulatorIPConfig)
 {
 

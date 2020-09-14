@@ -18,6 +18,7 @@ using namespace Poco;
 
 int main(int argc, char * argv[]){
 
+  //Obtaining IP address and port of bridge
   string ipConfigPortStr;
   struct ipConfig simulatorIPConfig;
 
@@ -31,12 +32,15 @@ int main(int argc, char * argv[]){
 
   simulatorIPConfig.port = stoi(ipConfigPortStr);
 
+  //Obtaining lights currently on the bridge
   string lightsPath = "/api/newdeveloper/lights";
 
+  //Creating vector of lights on the bridge and populating with the JSON data
   vector<struct light> lightsVec = createLightsVec(httpGetJSON(simulatorIPConfig, lightsPath));
 
   updateLightsVec(&lightsVec, simulatorIPConfig);
 
+  //Initial display of all lights and their states
   for(struct light i : lightsVec)
   {
 
@@ -49,8 +53,12 @@ int main(int argc, char * argv[]){
 
   }
 
+  //Creating a comparison vector of lights containing continuously updated
+  //data from bridge
   vector<struct light> lightsOnBridge = createLightsVec(httpGetJSON(simulatorIPConfig, lightsPath));
 
+  //Continuously gather data from bridge to detect changes in states.
+  //This is perfromed every 250 ms.
   while(1)
   {
 
@@ -58,8 +66,9 @@ int main(int argc, char * argv[]){
 
     updateLightsVec(&lightsOnBridge, simulatorIPConfig);
 
+    //If a change is detected in either brightness or power state,
+    //the data in the original vector is updated and the change is output.
     dbUpdateCheck(&lightsVec, &lightsOnBridge);
-
 
   }
 

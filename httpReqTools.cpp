@@ -22,6 +22,8 @@ using namespace Poco;
 #include "dataTypes.h"
 #include "httpReqTools.h"
 
+//Function for sending GET requests to the bridge and specified path
+//and returning the JSON objects in that path.
 Dynamic::Var httpGetJSON(struct ipConfig myConfig,string myPath){
 
     //Start session
